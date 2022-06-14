@@ -1,0 +1,2730 @@
+{
+    "name": "dev",
+    "uuid": "29d67aed-16bf-4665-a7f1-aa6c6e13ed85",
+    "components": [
+        {
+            "name": "volunteers_comp",
+            "hash": "165d710568f734bbcc6444e32d01ebc5",
+            "resources": [
+                {
+                    "name": "demo_db",
+                    "ruuid": "cdev::simple::relationaldb",
+                    "hash": "999fcfa4b15f1b1fb1c94670c6d799bc",
+                    "DatabaseName": "volunteers",
+                    "Engine": "aurora-postgresql",
+                    "MasterUserPassword": "pass1234",
+                    "MinCapacity": 2,
+                    "MasterUsername": "vol1234",
+                    "EnableHttpEndpoint": true,
+                    "SecondsToPause": 300,
+                    "MaxCapacity": 64
+                },
+                {
+                    "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                    "ruuid": "cdev::simple::lambda_layer",
+                    "hash": "f41ab4721ed236ea0881dd087704a125",
+                    "artifact_path": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/layers/sqlalchemy_aurora_data_api-0.4.1-any.zip"
+                },
+                {
+                    "name": "list_volunteers_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "2839f583186af0e656470df29fcc718a",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_list_volunteers.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "60152b2fc95a0f5570885d83829b90d2",
+                            "granting_permission": null,
+                            "path": "/list_volunteers",
+                            "verb": "GET",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/list_volunteers GET"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_list_volunteers.list_volunteers",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "5124306fec9cc689ceb3afa87999e68b",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                {
+                    "name": "delete_volunteers_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "3d5f0b35899358a0a85eb618bd6ce4f2",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_delete_volunteers.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "3452eb3b2cbb5a599f5c1bd0aa8ac6eb",
+                            "granting_permission": null,
+                            "path": "/volunteers",
+                            "verb": "DELETE",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/volunteers DELETE"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_delete_volunteers.delete_volunteers",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "0669e5c83a707b77a835935cfbd7f3c4",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                {
+                    "name": "volunteers",
+                    "ruuid": "cdev::simple::api",
+                    "hash": "66025449c690c10d97744c6ba7103af5",
+                    "allow_cors": true,
+                    "routes": [
+                        {
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "additional_scopes": [],
+                            "authorizer_name": null
+                        },
+                        {
+                            "path": "/list_volunteers",
+                            "verb": "GET",
+                            "additional_scopes": [],
+                            "authorizer_name": null
+                        },
+                        {
+                            "path": "/volunteers",
+                            "verb": "DELETE",
+                            "additional_scopes": [],
+                            "authorizer_name": null
+                        },
+                        {
+                            "path": "/volunteers",
+                            "verb": "GET",
+                            "additional_scopes": [],
+                            "authorizer_name": null
+                        }
+                    ],
+                    "authorizers": []
+                },
+                {
+                    "name": "select_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "1039d41d63639fdae5616648d37abb7a",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_select_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "f47a6a7087478694bf379e2a17baa510",
+                            "granting_permission": null,
+                            "path": "/volunteers",
+                            "verb": "GET",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/volunteers GET"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_select_volunteer.select_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "cf5c36b54ad687af284c272b4789e1f9",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                {
+                    "name": "demofrontend",
+                    "ruuid": "cdev::simple::staticsite",
+                    "hash": "3a8c2d0a6684b72e2bceb816dac66aa3",
+                    "ssl_certificate_arn": null,
+                    "error_document": "error.html",
+                    "index_document": "index.html",
+                    "sync_folder": false,
+                    "domain_name": null,
+                    "content_folder": "src/content"
+                },
+                {
+                    "name": "testfrontend",
+                    "ruuid": "cdev::simple::staticsite",
+                    "hash": "dea4a7ce2cbf22fb69d4d993c7ca518a",
+                    "ssl_certificate_arn": null,
+                    "error_document": "error.html",
+                    "index_document": "index.html",
+                    "sync_folder": false,
+                    "domain_name": null,
+                    "content_folder": "src/content_test"
+                },
+                {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "3c5f1a422690cb8f94c6233a6ea5ab15",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ],
+                    "src_code_hash": "3e7ee512b646248d4b9e203248121e02",
+                    "platform": "py38-x86_64"
+                }
+            ],
+            "references": [],
+            "cloud_output": {
+                "cdev::simple::relationaldb;demo_db": {
+                    "endpoint": "cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272.cluster-cjn1vnbkcn79.us-east-1.rds.amazonaws.com",
+                    "secret_arn": "arn:aws:secretsmanager:us-east-1:670580985562:secret:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272-config-7Jiitz",
+                    "cloud_id": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cluster_arn": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev_name": "demo_db",
+                    "cluster_name": "cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cloud_region": "us-east-1"
+                },
+                "cdev::simple::lambda_layer;sqlalchemy_aurora_data_api-0.4.1-any": {
+                    "cloud_id": "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1",
+                    "arn": "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb",
+                    "version": 1,
+                    "cloud_region": "us-east-1"
+                },
+                "cdev::simple::function;list_volunteers_function": {
+                    "function_name": "cdev_function_aeb97a24f2f1716a676cda98ac134d80",
+                    "role_id": "arn:aws:iam::670580985562:role/role_cdev_function_aeb97a24f2f1716a676cda98ac134d80",
+                    "role_name": "role_cdev_function_aeb97a24f2f1716a676cda98ac134d80",
+                    "permissions": [
+                        {
+                            "hash": "5716d4c838ca883b990461fa9761ef51",
+                            "arn": "arn:aws:iam::670580985562:policy/e5786252-fe8d-4ede-8be1-996d743cfb1f",
+                            "was_created": true
+                        },
+                        {
+                            "hash": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                            "arn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                            "was_created": false
+                        },
+                        {
+                            "hash": "d1ce631b618175472020a0c0e62ec975",
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "was_created": false
+                        }
+                    ],
+                    "artifact_bucket": "cdev-working-artifacts",
+                    "artifact_key": "cdev_function_aeb97a24f2f1716a676cda98ac134d80-2839f583186af0e656470df29fcc718a.zip",
+                    "layers": [
+                        "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1"
+                    ],
+                    "cloud_id": "arn:aws:lambda:us-east-1:670580985562:function:cdev_function_aeb97a24f2f1716a676cda98ac134d80",
+                    "events": {
+                        "60152b2fc95a0f5570885d83829b90d2": {
+                            "integration_id": "6ylzl69",
+                            "permission_stmt_id": "stmt-6mckffu",
+                            "api_id": "h555jgelg8",
+                            "route_id": "6mckffu"
+                        }
+                    },
+                    "cloud_region": "us-east-1"
+                },
+                "cdev::simple::function;delete_volunteers_function": {
+                    "function_name": "cdev_function_a192b6ba179b03f8b4fccf5aa462a0a1",
+                    "role_id": "arn:aws:iam::670580985562:role/role_cdev_function_a192b6ba179b03f8b4fccf5aa462a0a1",
+                    "role_name": "role_cdev_function_a192b6ba179b03f8b4fccf5aa462a0a1",
+                    "permissions": [
+                        {
+                            "hash": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                            "arn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                            "was_created": false
+                        },
+                        {
+                            "hash": "5716d4c838ca883b990461fa9761ef51",
+                            "arn": "arn:aws:iam::670580985562:policy/dd409a20-e08e-4258-b08a-eb3f57571e7f",
+                            "was_created": true
+                        },
+                        {
+                            "hash": "d1ce631b618175472020a0c0e62ec975",
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "was_created": false
+                        }
+                    ],
+                    "artifact_bucket": "cdev-working-artifacts",
+                    "artifact_key": "cdev_function_a192b6ba179b03f8b4fccf5aa462a0a1-3d5f0b35899358a0a85eb618bd6ce4f2.zip",
+                    "layers": [
+                        "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1"
+                    ],
+                    "cloud_id": "arn:aws:lambda:us-east-1:670580985562:function:cdev_function_a192b6ba179b03f8b4fccf5aa462a0a1",
+                    "events": {
+                        "3452eb3b2cbb5a599f5c1bd0aa8ac6eb": {
+                            "integration_id": "o23qphd",
+                            "permission_stmt_id": "stmt-us88z86",
+                            "api_id": "h555jgelg8",
+                            "route_id": "us88z86"
+                        }
+                    },
+                    "cloud_region": "us-east-1"
+                },
+                "cdev::simple::api;volunteers": {
+                    "cloud_id": "h555jgelg8",
+                    "endpoints": {
+                        "/list_volunteers GET": "6mckffu",
+                        "/volunteers DELETE": "us88z86",
+                        "/add_volunteer POST": "bh1ri50",
+                        "/volunteers GET": "kx75ja0"
+                    },
+                    "endpoint": "https://h555jgelg8.execute-api.us-east-1.amazonaws.com/live",
+                    "cloud_region": "us-east-1"
+                },
+                "cdev::simple::function;select_volunteer_function": {
+                    "function_name": "cdev_function_479e0f1c5b40f6fe7ac5344c90801569",
+                    "role_id": "arn:aws:iam::670580985562:role/role_cdev_function_479e0f1c5b40f6fe7ac5344c90801569",
+                    "role_name": "role_cdev_function_479e0f1c5b40f6fe7ac5344c90801569",
+                    "permissions": [
+                        {
+                            "hash": "5716d4c838ca883b990461fa9761ef51",
+                            "arn": "arn:aws:iam::670580985562:policy/6b463743-a111-4a6d-95d7-7036dea3b31d",
+                            "was_created": true
+                        },
+                        {
+                            "hash": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                            "arn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                            "was_created": false
+                        },
+                        {
+                            "hash": "d1ce631b618175472020a0c0e62ec975",
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "was_created": false
+                        }
+                    ],
+                    "artifact_bucket": "cdev-working-artifacts",
+                    "artifact_key": "cdev_function_479e0f1c5b40f6fe7ac5344c90801569-1039d41d63639fdae5616648d37abb7a.zip",
+                    "layers": [
+                        "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1"
+                    ],
+                    "cloud_id": "arn:aws:lambda:us-east-1:670580985562:function:cdev_function_479e0f1c5b40f6fe7ac5344c90801569",
+                    "events": {
+                        "f47a6a7087478694bf379e2a17baa510": {
+                            "integration_id": "7m7e2xa",
+                            "permission_stmt_id": "stmt-kx75ja0",
+                            "api_id": "h555jgelg8",
+                            "route_id": "kx75ja0"
+                        }
+                    },
+                    "cloud_region": "us-east-1"
+                },
+                "cdev::simple::staticsite;demofrontend": {
+                    "cloud_id": "arn:aws:cloudfront::670580985562:distribution/E3C5QN2EMCZR8S",
+                    "bucket_name": "cdev-staticsite-8604d1db500f727fef3ba9f28741e431",
+                    "cloudfront_id": "E3C5QN2EMCZR8S",
+                    "cloudfront_arn": "arn:aws:cloudfront::670580985562:distribution/E3C5QN2EMCZR8S",
+                    "site_url": "da7ly2a3kjwgz.cloudfront.net",
+                    "cloud_region": "us-east-1"
+                },
+                "cdev::simple::staticsite;testfrontend": {
+                    "cloud_id": "arn:aws:cloudfront::670580985562:distribution/E3R7XZAIB0D70X",
+                    "bucket_name": "cdev-staticsite-98c3e1b8fec2a0247b4a7526ea20c18b",
+                    "cloudfront_id": "E3R7XZAIB0D70X",
+                    "cloudfront_arn": "arn:aws:cloudfront::670580985562:distribution/E3R7XZAIB0D70X",
+                    "site_url": "du2ofoqk37tax.cloudfront.net",
+                    "cloud_region": "us-east-1"
+                },
+                "cdev::simple::function;add_volunteer_function": {
+                    "function_name": "cdev_function_4bdce1cbb864f7f4d803aac4808575f4",
+                    "role_id": "arn:aws:iam::670580985562:role/role_cdev_function_4bdce1cbb864f7f4d803aac4808575f4",
+                    "role_name": "role_cdev_function_4bdce1cbb864f7f4d803aac4808575f4",
+                    "permissions": [
+                        {
+                            "hash": "5716d4c838ca883b990461fa9761ef51",
+                            "arn": "arn:aws:iam::670580985562:policy/a9551cb7-5630-4a32-9dcc-c4ac1037c02b",
+                            "was_created": true
+                        },
+                        {
+                            "hash": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                            "arn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                            "was_created": false
+                        },
+                        {
+                            "hash": "d1ce631b618175472020a0c0e62ec975",
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "was_created": false
+                        }
+                    ],
+                    "artifact_bucket": "cdev-working-artifacts",
+                    "artifact_key": "cdev_function_4bdce1cbb864f7f4d803aac4808575f4-3c5f1a422690cb8f94c6233a6ea5ab15.zip",
+                    "layers": [
+                        "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1"
+                    ],
+                    "cloud_id": "arn:aws:lambda:us-east-1:670580985562:function:cdev_function_4bdce1cbb864f7f4d803aac4808575f4",
+                    "events": {
+                        "fe28ce56ec03743c2691d777ef9cafd5": {
+                            "integration_id": "h36qe88",
+                            "permission_stmt_id": "stmt-bh1ri50",
+                            "api_id": "h555jgelg8",
+                            "route_id": "bh1ri50"
+                        }
+                    },
+                    "cloud_region": "us-east-1"
+                }
+            },
+            "previous_resolved_cloud_values": {
+                "cdev::simple::relationaldb;demo_db": {},
+                "cdev::simple::lambda_layer;sqlalchemy_aurora_data_api-0.4.1-any": {},
+                "cdev::simple::function;list_volunteers_function": {
+                    "cdev::simple::relationaldb;demo_db;cluster_arn": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev::simple::relationaldb;demo_db;secret_arn": "arn:aws:secretsmanager:us-east-1:670580985562:secret:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272-config-7Jiitz",
+                    "cdev::simple::api;volunteers;cloud_id": "h555jgelg8",
+                    "cdev::simple::api;volunteers;endpoints": {
+                        "/list_volunteers GET": "6mckffu",
+                        "/volunteers DELETE": "us88z86",
+                        "/add_volunteer POST": "bh1ri50"
+                    },
+                    "cdev::simple::relationaldb;demo_db;cloud_id": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev::simple::lambda_layer;sqlalchemy_aurora_data_api-0.4.1-any;cloud_id": "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1"
+                },
+                "cdev::simple::function;delete_volunteers_function": {
+                    "cdev::simple::relationaldb;demo_db;cluster_arn": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev::simple::relationaldb;demo_db;secret_arn": "arn:aws:secretsmanager:us-east-1:670580985562:secret:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272-config-7Jiitz",
+                    "cdev::simple::api;volunteers;cloud_id": "h555jgelg8",
+                    "cdev::simple::api;volunteers;endpoints": {
+                        "/list_volunteers GET": "6mckffu",
+                        "/volunteers DELETE": "us88z86",
+                        "/add_volunteer POST": "bh1ri50"
+                    },
+                    "cdev::simple::relationaldb;demo_db;cloud_id": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev::simple::lambda_layer;sqlalchemy_aurora_data_api-0.4.1-any;cloud_id": "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1"
+                },
+                "cdev::simple::api;volunteers": {},
+                "cdev::simple::function;select_volunteer_function": {
+                    "cdev::simple::relationaldb;demo_db;cluster_arn": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev::simple::relationaldb;demo_db;secret_arn": "arn:aws:secretsmanager:us-east-1:670580985562:secret:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272-config-7Jiitz",
+                    "cdev::simple::api;volunteers;cloud_id": "h555jgelg8",
+                    "cdev::simple::api;volunteers;endpoints": {
+                        "/list_volunteers GET": "6mckffu",
+                        "/volunteers DELETE": "us88z86",
+                        "/add_volunteer POST": "bh1ri50",
+                        "/volunteers GET": "kx75ja0"
+                    },
+                    "cdev::simple::relationaldb;demo_db;cloud_id": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev::simple::lambda_layer;sqlalchemy_aurora_data_api-0.4.1-any;cloud_id": "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1"
+                },
+                "cdev::simple::staticsite;demofrontend": {},
+                "cdev::simple::staticsite;testfrontend": {},
+                "cdev::simple::function;add_volunteer_function": {
+                    "cdev::simple::relationaldb;demo_db;cluster_arn": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev::simple::relationaldb;demo_db;secret_arn": "arn:aws:secretsmanager:us-east-1:670580985562:secret:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272-config-7Jiitz",
+                    "cdev::simple::api;volunteers;cloud_id": "h555jgelg8",
+                    "cdev::simple::api;volunteers;endpoints": {
+                        "/list_volunteers GET": "6mckffu",
+                        "/volunteers DELETE": "us88z86",
+                        "/add_volunteer POST": "bh1ri50",
+                        "/volunteers GET": "kx75ja0"
+                    },
+                    "cdev::simple::relationaldb;demo_db;cloud_id": "arn:aws:rds:us-east-1:670580985562:cluster:cdev-relationaldb-5c6074b719cff5e545e0eb112ee67272",
+                    "cdev::simple::lambda_layer;sqlalchemy_aurora_data_api-0.4.1-any;cloud_id": "arn:aws:lambda:us-east-1:670580985562:layer:sqlalchemy_aurora_data_api_041_any_f41ab4721ed236ea0881dd087704a125_fd8c8491fb:1"
+                }
+            },
+            "external_references": {}
+        }
+    ],
+    "component_name_to_uuid": {
+        "volunteers_comp": "e433cce2-71d4-4d13-a06a-d7689573c9a7"
+    },
+    "parent_uuid": null,
+    "children": [],
+    "resource_changes": {},
+    "failed_changes": {
+        "77ad95d6-c13f-413b-ab52-2faabdc670d1": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "68445b15da448d7fd6ca68ccb09c0918",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "8e3cb9185ce2215d0090f6bc783baebd",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "7d2511c6d996599d5ea6b0861bff7d8d",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "actions": [
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        },
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "7eb34357c3a8658fb6f351913658588d",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "8767836e-5204-48f5-a97a-200b9ed030af": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "68445b15da448d7fd6ca68ccb09c0918",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "actions": [
+                                "rds-data:BeginTransaction",
+                                "rds-data:CommitTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:RollbackTransaction",
+                                "rds-data:BatchExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        },
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "8e3cb9185ce2215d0090f6bc783baebd",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "7d2511c6d996599d5ea6b0861bff7d8d",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "actions": [
+                                "rds-data:BeginTransaction",
+                                "rds-data:CommitTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:RollbackTransaction",
+                                "rds-data:BatchExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        },
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "7eb34357c3a8658fb6f351913658588d",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "2f7c4257-1544-4334-ad43-74fdf6506a3b": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "68445b15da448d7fd6ca68ccb09c0918",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:BeginTransaction",
+                                "rds-data:RollbackTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BatchExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "8e3cb9185ce2215d0090f6bc783baebd",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "7d2511c6d996599d5ea6b0861bff7d8d",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:BeginTransaction",
+                                "rds-data:RollbackTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BatchExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "7eb34357c3a8658fb6f351913658588d",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "ed0dab36-8ca9-4bcf-85cc-8c3a8d92c6c5": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "68445b15da448d7fd6ca68ccb09c0918",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:RollbackTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "8e3cb9185ce2215d0090f6bc783baebd",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "7d2511c6d996599d5ea6b0861bff7d8d",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "actions": [
+                                "rds-data:RollbackTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        },
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "7eb34357c3a8658fb6f351913658588d",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "707ae45a-6627-4d31-a802-1eca83030c4c": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "68445b15da448d7fd6ca68ccb09c0918",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "actions": [
+                                "rds-data:RollbackTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:ExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        },
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "8e3cb9185ce2215d0090f6bc783baebd",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "7d2511c6d996599d5ea6b0861bff7d8d",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "actions": [
+                                "rds-data:RollbackTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:ExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        },
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "7eb34357c3a8658fb6f351913658588d",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "44f56ad8-b9ef-4dac-8fe6-c9423774dd86": [
+            "volunteers_comp",
+            {
+                "action_type": "CREATE",
+                "component_name": "volunteers_comp",
+                "previous_resource": null,
+                "new_resource": {
+                    "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                    "ruuid": "cdev::simple::lambda_layer",
+                    "hash": "f41ab4721ed236ea0881dd087704a125",
+                    "artifact_path": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/layers/sqlalchemy_aurora_data_api-0.4.1-any.zip"
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "32fc9dfd-f803-4402-be66-aef1d9e5169a": [
+            "volunteers_comp",
+            {
+                "action_type": "CREATE",
+                "component_name": "volunteers_comp",
+                "previous_resource": null,
+                "new_resource": {
+                    "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                    "ruuid": "cdev::simple::lambda_layer",
+                    "hash": "f41ab4721ed236ea0881dd087704a125",
+                    "artifact_path": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/layers/sqlalchemy_aurora_data_api-0.4.1-any.zip"
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "eb3ca105-724d-4248-b717-9fe7b0d43737": [
+            "volunteers_comp",
+            {
+                "action_type": "CREATE",
+                "component_name": "volunteers_comp",
+                "previous_resource": null,
+                "new_resource": {
+                    "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                    "ruuid": "cdev::simple::lambda_layer",
+                    "hash": "f41ab4721ed236ea0881dd087704a125",
+                    "artifact_path": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/layers/sqlalchemy_aurora_data_api-0.4.1-any.zip"
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "9e6a047a-9974-45ce-80a9-59d053bb37c1": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "07add6de1a098a2ecd8dd2d4ed1235ac",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "e7ef6665a94472dab4e8add19cf7d05d",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "21d0854777eead15d93a98fb80bbe488",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:CommitTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "710cfd6dd8d0a76eb55f840a4176c354",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "ad2dc194-6a09-4403-b818-6ba3609b2857": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "07add6de1a098a2ecd8dd2d4ed1235ac",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:RollbackTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BatchExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "e7ef6665a94472dab4e8add19cf7d05d",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "21d0854777eead15d93a98fb80bbe488",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:RollbackTransaction",
+                                "rds-data:BeginTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BatchExecuteStatement"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "710cfd6dd8d0a76eb55f840a4176c354",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "3542ac05-de55-475f-83c8-b2da5709f6ac": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "07add6de1a098a2ecd8dd2d4ed1235ac",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:BeginTransaction",
+                                "rds-data:CommitTransaction",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "e7ef6665a94472dab4e8add19cf7d05d",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "add_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "21d0854777eead15d93a98fb80bbe488",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_add_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:BeginTransaction",
+                                "rds-data:CommitTransaction",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "fe28ce56ec03743c2691d777ef9cafd5",
+                            "granting_permission": null,
+                            "path": "/add_volunteer",
+                            "verb": "POST",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/add_volunteer POST"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_add_volunteer.add_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "710cfd6dd8d0a76eb55f840a4176c354",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ],
+        "a689eb9f-495a-4c5a-88b0-0bcb2edafdfc": [
+            "volunteers_comp",
+            {
+                "action_type": "UPDATE_IDENTITY",
+                "component_name": "volunteers_comp",
+                "previous_resource": {
+                    "name": "select_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "928136d6fe157ef5fa604cdd12271e6d",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_select_volunteer.zip",
+                    "permissions": [
+                        {
+                            "actions": [
+                                "rds-data:BeginTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        },
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "f47a6a7087478694bf379e2a17baa510",
+                            "granting_permission": null,
+                            "path": "/volunteers",
+                            "verb": "GET",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/volunteers GET"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_select_volunteer.select_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "dc00e9e7ec6abe8e98bfd7510f86e8cf",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                },
+                "new_resource": {
+                    "name": "select_volunteer_function",
+                    "ruuid": "cdev::simple::function",
+                    "hash": "cebe0885bb4276650b55d630b8541745",
+                    "filepath": ".cdev/intermediate/29d67aed-16bf-4665-a7f1-aa6c6e13ed85/src/volunteers/resources_select_volunteer.zip",
+                    "permissions": [
+                        {
+                            "arn": "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+                            "hash": "d1ce631b618175472020a0c0e62ec975"
+                        },
+                        {
+                            "actions": [
+                                "rds-data:BeginTransaction",
+                                "rds-data:ExecuteStatement",
+                                "rds-data:CommitTransaction",
+                                "rds-data:BatchExecuteStatement",
+                                "rds-data:RollbackTransaction"
+                            ],
+                            "cloud_id": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "effect": "Allow",
+                            "resource_suffix": null,
+                            "hash": "5716d4c838ca883b990461fa9761ef51"
+                        }
+                    ],
+                    "events": [
+                        {
+                            "originating_resource_name": "volunteers",
+                            "originating_resource_type": "cdev::simple::api",
+                            "hash": "f47a6a7087478694bf379e2a17baa510",
+                            "granting_permission": null,
+                            "path": "/volunteers",
+                            "verb": "GET",
+                            "api_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "cloud_id",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "route_id": {
+                                "name": "volunteers",
+                                "ruuid": "cdev::simple::api",
+                                "key": "endpoints",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": [
+                                    [
+                                        "__getitem__",
+                                        [
+                                            "/volunteers GET"
+                                        ],
+                                        {}
+                                    ]
+                                ]
+                            },
+                            "response_type": ""
+                        }
+                    ],
+                    "platform": "py38-x86_64",
+                    "configuration": {
+                        "handler": "src.volunteers.resources_select_volunteer.select_volunteer",
+                        "description": "",
+                        "environment_variables": {
+                            "CLUSTER_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "cluster_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "SECRET_ARN": {
+                                "name": "demo_db",
+                                "ruuid": "cdev::simple::relationaldb",
+                                "key": "secret_arn",
+                                "type": "resource",
+                                "id": "cdev_cloud_output",
+                                "output_operations": []
+                            },
+                            "DB_NAME": "volunteers"
+                        }
+                    },
+                    "src_code_hash": "d6003fbe5581b7f0ad046d44342f7220",
+                    "external_dependencies": [
+                        {
+                            "name": "sqlalchemy_aurora_data_api-0.4.1-any",
+                            "ruuid": "cdev::simple::lambda_layer",
+                            "key": "cloud_id",
+                            "type": "resource",
+                            "id": "cdev_cloud_output",
+                            "output_operations": []
+                        }
+                    ]
+                }
+            },
+            {
+                "message": "deployment error"
+            }
+        ]
+    }
+}

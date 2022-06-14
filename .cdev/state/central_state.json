@@ -1,0 +1,17 @@
+{
+    "resource_state_locations": {
+        "47b6a63c-4ffc-4179-8bd5-66124fa9905f": "/home/ianick/projects/volunteers/.cdev/state/resource_state_47b6a63c-4ffc-4179-8bd5-66124fa9905f.json",
+        "e6bbdcdd-da40-4403-9b61-b46d2bba61ad": "/home/ianick/projects/volunteers/.cdev/state/resource_state_e6bbdcdd-da40-4403-9b61-b46d2bba61ad.json",
+        "29d67aed-16bf-4665-a7f1-aa6c6e13ed85": "/home/ianick/projects/volunteers/.cdev/state/resource_state_29d67aed-16bf-4665-a7f1-aa6c6e13ed85.json"
+    },
+    "top_level_states": [
+        "47b6a63c-4ffc-4179-8bd5-66124fa9905f",
+        "e6bbdcdd-da40-4403-9b61-b46d2bba61ad",
+        "29d67aed-16bf-4665-a7f1-aa6c6e13ed85"
+    ],
+    "resource_state_names": [
+        "prod",
+        "stage",
+        "dev"
+    ]
+}
